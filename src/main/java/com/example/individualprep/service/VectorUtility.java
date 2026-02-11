@@ -36,6 +36,9 @@ public class VectorUtility {
     }
 
     public double[] multiply(double[] v1, int x) {
+        if (v1 == null) {
+            throw new IllegalArgumentException("Vector cannot be null");
+        }
         double[] result = new double[v1.length];
         for (int i = 0; i < v1.length; i++) {
             result[i] = v1[i] * x;
