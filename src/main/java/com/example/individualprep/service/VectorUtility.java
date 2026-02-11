@@ -42,7 +42,14 @@ public class VectorUtility {
     }
     
     public double norm(double[] v1) {
-        // TODO: Implement me properly!
-        return 0.0;
+        if (v1 == null) throw new IllegalArgumentException("Vector argument cannot be null");
+
+        double squaredSum = 0.0;
+
+        for (double component : v1) {
+            squaredSum += component * component;
+        }
+
+        return Math.sqrt(squaredSum);
     }
 }
