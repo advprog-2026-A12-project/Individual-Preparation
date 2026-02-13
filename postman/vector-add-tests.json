@@ -1,0 +1,146 @@
+{
+  "info": {
+    "_postman_id": "c5d6e7f8-g9h0-1234-c5d6-e7f8g9h01234",
+    "name": "Vector add API tests",
+    "description": "Functional tests for Vector add endpoint",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48321259"
+  },
+  "item": [
+    {
+      "name": "testStatus200",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Add result is correct\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.result).to.eql([5.0, 7.0, 9.0]);",
+              "});",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vector1\": [1.0, 2.0, 3.0],\n  \"vector2\": [4.0, 5.0, 6.0]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/add",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "vector",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "testStatus500_DifferentLengths",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 500\", function () {",
+              "    pm.response.to.have.status(500);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vector1\": [1.0, 2.0, 3.0],\n  \"vector2\": [1.0, 2.0]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/add",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "vector",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "testStatus400_InvalidInput",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {",
+              "    pm.response.to.have.status(400);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vector1\": [1.0, 2.0, 3.0],\n  \"vector2\": \"invalid\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/add",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "vector",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

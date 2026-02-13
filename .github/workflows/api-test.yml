@@ -35,14 +35,32 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run Postman collection for arithmetic-subtract
-        run: newman run postman/arithmetic-subtract-tests.json
-
-      - name: Run Postman collection for vector-subtract
-        run: newman run postman/vector-subtract-tests.json
-        
       - name: Run arithmetic subtract API tests
         run: newman run postman/arithmetic-subtract-tests.json
 
-      - name: Run Vector doProduct API tests
+      - name: Run arithmetic divide API tests
+        run: newman run postman/arithmetic-divide-tests.json
+        
+      - name: Run arithmetic add API tests
+        run: newman run postman/arithmetic-add-test.json
+        
+      - name: Run arithmetic exponent API tests
+        run: newman run postman/arithmetic-exponent-tests.json
+
+      - name: Run arithmetic multiply API tests
+        run: newman run postman/arithmetic-multiply-tests.json
+
+      - name: Run Vector subtract API tests
+        run: newman run postman/vector-subtract-tests.json
+
+      - name: Run Vector dotProduct API tests
         run: newman run postman/vector-dotproduct-tests.json
+
+      - name: Run Vector norm API tests
+        run: newman run postman/vector-norm-test.json
+        
+      - name: Run Vector add API tests
+        run: newman run postman/vector-add-tests.json
+        
+      - name: Run Vector multiply API tests
+        run: newman run postman/vector-multiply-tests.json
