@@ -1,0 +1,53 @@
+name: Sonarcloud-nizar.yml
+on:
+  push:
+    branches: [ "ci-cd/nizar"]
+  pull_request:
+    branches: [ "ci-cd/nizar"]
+  workflow_dispatch:
+
+permissions:
+  pull-requests: read
+
+jobs:
+  Analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build + test + coverage
+        run: ./gradlew test jacocoTestReport
+
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.2.0
+        env:
+          # Token ini mengambil dari Secrets repo, jadi JANGAN diubah
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args:
+            # Bagian di bawah ini JANGAN diubah (tetap sama dengan punya Haikal)
+            # karena kalian memakai 1 project key yang sama untuk repo ini.
+            -Dsonar.projectKey=advprog-2026-A12-project_Individual-Preparation
+            -Dsonar.organization=advprog-2026-a12-project
+            
+            -Dsonar.java.binaries=build/classes
+            -Dsonar.sources=src/main/java
+            -Dsonar.tests=src/test/java
+            -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml
+          projectBaseDir: .
