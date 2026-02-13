@@ -1,0 +1,48 @@
+name: API Functional Test
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build project
+        run: ./gradlew build
+
+      - name: Start application
+        run: |
+          nohup ./gradlew bootRun &
+
+      - name: Wait for server
+        run: sleep 25
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman collection for arithmetic-subtract
+        run: newman run postman/arithmetic-subtract-tests.json
+
+      - name: Run Postman collection for vector-subtract
+        run: newman run postman/vector-subtract-tests.json
+        
+      - name: Run arithmetic subtract API tests
+        run: newman run postman/arithmetic-subtract-tests.json
+
+      - name: Run Vector doProduct API tests
+        run: newman run postman/vector-dotproduct-tests.json

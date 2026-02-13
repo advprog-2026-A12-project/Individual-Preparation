@@ -26,4 +26,5 @@ public class ArithmeticAddTest {
       double result = arithmeticUtility.add(10.0, -5.0);
       assertEquals(5.0, result, 0.0001);
    }
+
 }
