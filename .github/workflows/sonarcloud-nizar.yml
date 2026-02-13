@@ -1,4 +1,4 @@
-name: Sonarcloud-nizar.yml
+name: sonarcloud-nizar.yml
 on:
   push:
     branches: [ "ci-cd/nizar"]
