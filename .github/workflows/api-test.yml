@@ -35,5 +35,8 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run Postman collection
+      - name: Run Postman collection for arithmetic-subtract
         run: newman run postman/arithmetic-subtract-tests.json
+
+      - name: Run Postman collection for vector-subtract
+        run: newman run postman/vector-subtract-tests.json
