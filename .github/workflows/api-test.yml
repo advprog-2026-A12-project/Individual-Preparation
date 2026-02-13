@@ -46,3 +46,6 @@ jobs:
 
       - name: Run Vector doProduct API tests
         run: newman run postman/vector-dotproduct-tests.json
+
+      - name: Run Arithmetic add API tests
+        run: newman run postman/arithmetic-add-test.json
