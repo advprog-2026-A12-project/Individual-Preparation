@@ -46,3 +46,6 @@ jobs:
 
       - name: Run Vector doProduct API tests
         run: newman run postman/vector-dotproduct-tests.json
+
+      - name: Run Vector norm API tests
+        run: newman run postman/vector-norm-test.json
