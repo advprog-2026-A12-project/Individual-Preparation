@@ -1,0 +1,118 @@
+{
+  "info": {
+    "_postman_id": "af03e180-3b4e-4ed3-a254-6d3476ad5871",
+    "name": "Vector dotProduct API tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48321259",
+    "_collection_link": "https://go.postman.co/collection/48321259-af03e180-3b4e-4ed3-a254-6d3476ad5871?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "dotProduct - Valid Input",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response has scalarResult field\", function () {\r",
+              "    const json = pm.response.json();\r",
+              "    pm.expect(json).to.have.property(\"scalarResult\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Dot product is correct\", function () {\r",
+              "    const json = pm.response.json();\r",
+              "    pm.expect(json.scalarResult).to.eql(32.0);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"vector1\": [1,2,3],\r\n  \"vector2\": [4,5,6]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/dotProduct",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "vector",
+            "dotProduct"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "dotProduct - Length Mismatch",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 500\", function () {\r",
+              "    pm.response.to.have.status(500);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Error response contains message\", function () {\r",
+              "    const json = pm.response.json();\r",
+              "    pm.expect(json).to.have.property(\"error\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"vector1\": [1,2],\r\n  \"vector2\": [3,4,5]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/dotProduct",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "vector",
+            "dotProduct"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
