@@ -1,0 +1,181 @@
+{
+  "info": {
+    "name": "Vector Multiply API Tests",
+    "description": "Functional API testing for vector multiply endpoint",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Multiply Success - Positive Scalar",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Vector result is correct\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.vectorResult).to.eql([2,4,6]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vector1\": [1,2,3],\n  \"scalar\": 2\n}",
+          "options": {
+            "raw": { "language": "json" }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/multiply",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "vector", "multiply"]
+        }
+      }
+    },
+    {
+      "name": "Multiply Success - Zero Scalar",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Vector becomes zero vector\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.vectorResult).to.eql([0,0,0]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vector1\": [5,10,-3],\n  \"scalar\": 0\n}",
+          "options": {
+            "raw": { "language": "json" }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/multiply",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "vector", "multiply"]
+        }
+      }
+    },
+    {
+      "name": "Multiply Error - Null Vector",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test(\"Error message exists\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.error).to.exist;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vector1\": null,\n  \"scalar\": 2\n}",
+          "options": {
+            "raw": { "language": "json" }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/multiply",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "vector", "multiply"]
+        }
+      }
+    },
+    {
+      "name": "Multiply Success - Empty Vector",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Empty vector stays empty\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.vectorResult).to.eql([]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vector1\": [],\n  \"scalar\": 3\n}",
+          "options": {
+            "raw": { "language": "json" }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/vector/multiply",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "vector", "multiply"]
+        }
+      }
+    }
+  ]
+}
