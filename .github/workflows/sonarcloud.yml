@@ -72,6 +72,8 @@ jobs:
             -Dsonar.projectKey=advprog-2026-A12-project_Individual-Preparation
             -Dsonar.organization=advprog-2026-a12-project
             -Dsonar.java.binaries=build/classes
+            -Dsonar.sources=src/main/java
+            -Dsonar.tests=src/test/java
             -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml
           projectBaseDir: .
 
