@@ -36,6 +36,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  contents: read
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 jobs:
@@ -43,6 +44,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Sonar analysis and blame/PR metadata are more reliable with full history.
+          fetch-depth: 0
+
       - name: Analyze with SonarCloud
 
         # You can pin the exact commit or the version.
@@ -50,6 +57,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed for PR metadata/decoration in GitHub
         with:
           # Additional arguments for the SonarScanner CLI
           args:
