@@ -47,6 +47,9 @@ jobs:
       - name: Run arithmetic exponent API tests
         run: newman run postman/arithmetic-exponent-tests.json
 
+      - name: Run arithmetic multiply API tests
+        run: newman run postman/arithmetic-multiply-tests.json
+
       - name: Run Vector subtract API tests
         run: newman run postman/vector-subtract-tests.json
 
@@ -59,4 +62,5 @@ jobs:
       - name: Run Vector add API tests
         run: newman run postman/vector-add-tests.json
         
-      
+      - name: Run Vector multiply API tests
+        run: newman run postman/vector-multiply-tests.json
