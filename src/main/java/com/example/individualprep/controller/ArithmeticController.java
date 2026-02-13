@@ -44,7 +44,7 @@ public class ArithmeticController {
 
     @PostMapping("/exponent")
     public ResponseEntity<ArithmeticResponse> exponent(@RequestBody ArithmeticRequest request) {
-        if (request.exponent() == null) {
+        if (request.exponent() == null || request.operand1() == null) {
             return ResponseEntity.badRequest().build();
         }
         double result = arithmeticUtility.exponent(request.operand1(), request.exponent());

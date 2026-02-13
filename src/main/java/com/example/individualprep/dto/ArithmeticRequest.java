@@ -1,9 +1,11 @@
 package com.example.individualprep.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 public record ArithmeticRequest(
-    double operand1,
-    double operand2,
-    Integer exponent // Optional, only used for exponent operation
+    @JsonAlias("base") Double operand1,
+    Double operand2,
+    Integer exponent 
 ) {
 }
 
