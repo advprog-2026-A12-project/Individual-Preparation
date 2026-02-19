@@ -12,7 +12,7 @@ public class ArithmeticExponentTest {
         // 2^3 = 8
         double result = arithmeticUtility.exponent(2.0, 3);
         assertEquals(8.0, result, 0.0001);
-    }
+    } //tes
 
     @Test
     void testExponent_PositiveBaseZeroExponent() {
